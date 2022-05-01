@@ -18,6 +18,8 @@ Heroku is the easiest way to deploy this Bot
 - Join Our [Telegram Group](https://t.me/ShikariSupportNetwork) 
 - Join Our [Channel](https://t.me/The_SHIKARI_Network) For Updates.
 
+-  🦅**शिकारी हैं जनाब चिड़ियाँ थोड़ी मारेंगे**🦅
+
 # Mandatory Vars 🛠
 
 - [-] `APP_ID` :   You can get this value from [My Telegram Org](https://my.telegram.org/)
