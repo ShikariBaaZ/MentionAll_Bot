@@ -10,7 +10,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(name)s - [%(levelname)s] - %(message)s'
 )
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger(name)
 
 api_id = int(os.environ.get("APP_ID"))
 api_hash = os.environ.get("API_HASH")
@@ -21,35 +21,35 @@ spam_chats = []
 @client.on(events.NewMessage(pattern="^/start$"))
 async def start(event):
   await event.reply(
-    "__**I'm MentionAll Bot**, I will help you to mention near about all members in your group and channel 👻\nClick **/help** for more information__\n\n Follow [@The_Shikarii](https://github.com/ShikariBaaZ) on Github",
+    "__Selam Ben Sari Tagger Bot, "Yardım İçin /help\nKomutunu Kullan",
     link_preview=False,
     buttons=(
       [
-        Button.url('📣 Channel', 'https://t.me/The_SHIKARI_Network'),
-        Button.url('📦 Source', 'https://github.com/ShikariBaaZ/MentionAll_Bot')
+        Button.url('✨ Grubumuz', 't.me/sarisohbet'),
+        Button.url('👤 Sahipler', 't.me/sarisohbet/508019')
       ]
     )
   )
 
 @client.on(events.NewMessage(pattern="^/help$"))
 async def help(event):
-  helptext = "**Help Menu of MentionAll_Bot**\n\nCommand: /mentionall\n__You can use this command with text what you want to say to others.__\n`Example: /mentionall ShikariBaaZ is Always on Shikar!`\n__You can you this command as a reply to any message. Bot will tag users to that replied messsage__.\n\nFollow [@The_Shikarii](https://github.com/ShikariBaaZ) on Github"
+  helptext = "Sarı Tagger Bot'un Yardım Menüsündesiniz\n/Komut: /her\nEtiketleme İşlemini Durdurmak İçin /cancel\n`Örneğin: /her Buraya Gelin!"
   await event.reply(
     helptext,
     link_preview=False,
     buttons=(
       [
-        Button.url('📣 Channel', 'https://t.me/The_SHIKARI_Network'),
-        Button.url('📦 Source', 'https://github.com/ShikariBaaZ/MentionAll_Bot')
+        Button.url('✨ Grubumuz', 'https://t.me/sarisohbet'),
+        Button.url('👤 Sahipler', 'https://t.me/sarisohbet/508019')
       ]
     )
   )
   
-@client.on(events.NewMessage(pattern="^/mentionall ?(.*)"))
+@client.on(events.NewMessage(pattern="^/her ?(.*)"))
 async def mentionall(event):
   chat_id = event.chat_id
   if event.is_private:
-    return await event.respond("__This command can be use in groups and channels!__")
+    return await event.respond("Bu Komutlar Gruplarda Ve Kanallarda Geçerlidir!")
   
   is_admin = False
   try:
@@ -71,10 +71,10 @@ async def mentionall(event):
     ):
       is_admin = True
   if not is_admin:
-    return await event.respond("__Only admins can mention all members!__")
+    return await event.respond("Sadece Grup ve Kanal Adminleri Bu Komutları Kullanır!")
   
   if event.pattern_match.group(1) and event.is_reply:
-    return await event.respond("__Give me one argument!__")
+    return await event.respond("Bana Bir Metin Göndermen Lazım!")
   elif event.pattern_match.group(1):
     mode = "text_on_cmd"
     msg = event.pattern_match.group(1)
@@ -82,9 +82,9 @@ async def mentionall(event):
     mode = "text_on_reply"
     msg = await event.get_reply_message()
     if msg == None:
-        return await event.respond("__I can't mention members for older messages! (messages which are sent before I'm added to this group)__")
+        return await event.respond("Eski Mesajlar İle Üyelerden Bahsedemem!  (Beni Gruba Eklemeden Önce Yazılan Mesajlar)")
   else:
-    return await event.respond("__Reply to a message or give me some text to mention others!__")
+    return await event.respond("Etiketleme İşlemini Başlatabilmem İçin Komut İle Birlikte Bir Mesaj Yazman Gerekir!")
   
   spam_chats.append(chat_id)
   usrnum = 0
@@ -111,13 +111,13 @@ async def mentionall(event):
 @client.on(events.NewMessage(pattern="^/cancel$"))
 async def cancel_spam(event):
   if not event.chat_id in spam_chats:
-    return await event.respond('__There is no proccess on going...__')
+    return await event.respond('Etiketleme 🍃...')
   else:
     try:
       spam_chats.remove(event.chat_id)
     except:
       pass
-    return await event.respond('__Stopped.__')
+    return await event.respond('⛔ Etiketleme İşlemini Durdurdum.')
 
 print(">> BOT STARTED <<")
 client.run_until_disconnected()
